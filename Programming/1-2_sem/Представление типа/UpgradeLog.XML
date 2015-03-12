@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="11">
+</Property><Property Name="Файл решения" Value="C:\Users\Юлия\Documents\Visual Studio 2010\Projects\Представление типа\11.sln">
+</Property><Property Name="Файл параметров пользователя" Value="C:\Users\Юлия\Documents\Visual Studio 2010\Projects\Представление типа\11.suo">
+</Property><Property Name="Date" Value="4 октября 2013 г.">
+</Property><Property Name="Time" Value="18:41">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="11.sln" Description="Успешно создана резервная копия файла C:\Users\Юлия\Documents\Visual Studio 2010\Projects\Представление типа\11.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="11.suo" Description="Успешно создана резервная копия файла C:\Users\Юлия\Documents\Visual Studio 2010\Projects\Представление типа\11.suo.old">
+</Event><Event ErrorLevel="0" Project="11" Source="11\11.vcproj" Description="Converting project file 'C:\Users\Юлия\Documents\Visual Studio 2010\Projects\Представление типа\11\11.vcproj'.">
+</Event><Event ErrorLevel="1" Project="11" Source="11\11.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="11" Source="11\11.vcproj" Description="Done converting to new project file 'C:\Users\Юлия\Documents\Visual Studio 2010\Projects\Представление типа\11\11.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="11" Source="11\11.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="11.sln" Description="Преобразование решения успешно завершено">
+</Event><Event ErrorLevel="3" Project="" Source="11.sln" Description="Converted">
+</Event></UpgradeLog>

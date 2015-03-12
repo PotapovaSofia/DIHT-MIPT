@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Из_инфиксной_в_постфиксную">
+</Property><Property Name="Файл решения" Value="C:\Users\Юлия\Documents\Visual Studio 2008\Projects\Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.sln">
+</Property><Property Name="Файл параметров пользователя" Value="C:\Users\Юлия\Documents\Visual Studio 2008\Projects\Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.suo">
+</Property><Property Name="Date" Value="21 сентября 2013 г.">
+</Property><Property Name="Time" Value="14:41">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="Из_инфиксной_в_постфиксную.sln" Description="Успешно создана резервная копия файла C:\Users\Юлия\Documents\Visual Studio 2008\Projects\Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="Из_инфиксной_в_постфиксную.suo" Description="Успешно создана резервная копия файла C:\Users\Юлия\Documents\Visual Studio 2008\Projects\Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.suo.old">
+</Event><Event ErrorLevel="0" Project="Из_инфиксной_в_постфиксную" Source="Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.vcproj" Description="Converting project file 'C:\Users\Юлия\Documents\Visual Studio 2008\Projects\Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.vcproj'.">
+</Event><Event ErrorLevel="1" Project="Из_инфиксной_в_постфиксную" Source="Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="Из_инфиксной_в_постфиксную" Source="Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.vcproj" Description="Done converting to new project file 'C:\Users\Юлия\Documents\Visual Studio 2008\Projects\Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="Из_инфиксной_в_постфиксную" Source="Из_инфиксной_в_постфиксную\Из_инфиксной_в_постфиксную.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Из_инфиксной_в_постфиксную.sln" Description="Преобразование решения успешно завершено">
+</Event><Event ErrorLevel="3" Project="" Source="Из_инфиксной_в_постфиксную.sln" Description="Converted">
+</Event></UpgradeLog>

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1387640385 source:c:\users\Софья\desktop\Расстояние Левенштейна\main.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+

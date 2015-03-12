@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1387133492 source:c:\users\Софья\desktop\Наибольшая_возрастающая_подпоследовательность\main.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+

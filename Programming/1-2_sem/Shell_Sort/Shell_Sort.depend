@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1384525783 source:c:\users\Ρξτόÿ\desktop\shell_sort\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1386876541 source:c:\users\Ρξτόÿ\desktop\s_progects\2\----shell_sort\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+

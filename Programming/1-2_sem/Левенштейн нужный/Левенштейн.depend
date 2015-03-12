@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1387729748 source:c:\users\Софья\desktop\Левенштейн\main.cpp
+	<cstdio>
+	<cstdlib>
+	<string.h>
+

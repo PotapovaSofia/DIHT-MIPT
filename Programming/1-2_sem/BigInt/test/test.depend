@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1394738673 source:c:\users\Ρξτόÿ\desktop\test\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	<iostream>
+	<sstream>
+	<string.h>
+	<math.h>
+	<cmath>
+	<string>
+	<algorithm>
+	<cstdlib>
+

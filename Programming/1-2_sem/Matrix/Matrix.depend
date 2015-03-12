@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1394922787 source:c:\users\Ρξτόÿ\desktop\matrix\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	<iostream>
+	<sstream>
+	<string.h>
+	<math.h>
+	<time.h>
+	<cmath>
+	<string>
+	<algorithm>
+	<cstdlib>
+
+1394922929 source:c:\users\Ρξτόÿ\desktop\s_progects\4\matrix\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	<iostream>
+	<sstream>
+	<string.h>
+	<math.h>
+	<time.h>
+	<cmath>
+	<string>
+	<algorithm>
+	<cstdlib>
+

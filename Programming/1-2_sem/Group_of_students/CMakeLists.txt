@@ -1,0 +1,2 @@
+project(Group_of_students)
+add_executable(Group_of_students group_of_students.cpp)

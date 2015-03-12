@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1384462680 source:c:\users\Ρξτόÿ\desktop\merge_sort\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1386871693 source:c:\users\Ρξτόÿ\desktop\s_progects\2\merge_sort\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
