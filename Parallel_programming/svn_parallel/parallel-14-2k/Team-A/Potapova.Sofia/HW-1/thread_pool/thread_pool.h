@@ -12,44 +12,61 @@
 #include "thread_guard_for_pool.h"
 #include "thread_safe_queue.h"
 
-using namespace std;
-
 template <typename R>
 class thread_pool  {
-    thread_safe_queue<pair<function<R()>, promise<R> > > tasks;
-    vector<auto_thread_guard> executant_threads;
+    thread_safe_queue<std::pair<std::function<R()>, std::promise<R>>> tasks;
+    std::vector<std::thread> workers;
 
 public :
-    thread_pool(int size = 4) {
-        for (int i = 0; i < size; ++i) {
-            executant_threads.emplace_back(thread([&](){
-                pair< function <R()>, promise<R> > task;
-                while (tasks.pop(task)) {
-                    R result = task.first();
-                    try {
-                        task.second.set_value(result);
-                    } catch (exception&) {
-                        task.second.set_exception(current_exception());
-                    }
-                }
-            }));
-        }
+    thread_pool() {
+        execute_workers(get_default_num_workers());
     }
+    thread_pool(int thread_cnt) {
+        execute_workers(thread_cnt);
+    }
+
     ~thread_pool() {
         tasks.shutdown();
-        /*
-        for (int i = 0; i < executant_threads.size(); ++i) {
-            if (executant_threads[i].joinable()) {
-                executant_threads[i].join();
+        for (int i = 0; i < workers.size(); ++i) {
+              if (workers[i].joinable()) {
+                  workers[i].join();
+              }
+        }
+
+    }
+
+    std::future<R> submit(std::function<R()> task) {
+        std::promise<R> prom;
+        std::future<R> res = prom.get_future();
+        tasks.push(make_pair(task, move(prom)));
+        return res;
+    }
+
+private:
+    int get_default_num_workers() {
+        int thread_cnt = std::thread::hardware_concurrency();
+        if (thread_cnt == 0) {
+            thread_cnt = 4;
+        }
+        return thread_cnt;
+    }
+
+    void execute_workers(int size) {
+        for (int i = 0; i < size; ++i) {
+            workers.emplace_back(&thread_pool::worker_fn, this);
+        }
+    }
+
+    void worker_fn() {
+        std::pair<std::function <R()>, std::promise<R>> task;
+        while (tasks.pop(task)) {
+            try {
+                R result = task.first();
+                task.second.set_value(result);
+            } catch (...) {
+                task.second.set_exception(std::current_exception());
             }
         }
-        */
-    }
-    future<R> execute(function<R()> func_with_args) {
-        promise<R> task;
-        future<R> res = task.get_future();
-        tasks.push(make_pair(func_with_args, move(task)));
-        return res;
     }
 };
 

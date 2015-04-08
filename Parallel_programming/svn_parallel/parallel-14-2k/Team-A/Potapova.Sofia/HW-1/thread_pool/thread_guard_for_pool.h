@@ -5,16 +5,18 @@
 #include <thread>
 #include <iostream>
 
-using namespace std;
-
 class auto_thread_guard {
-    thread tthread;
+    std::thread tthread;
+
 public:
-    auto_thread_guard(thread thread_): tthread(move(thread_)) {}
+    auto_thread_guard(std::thread thread_): tthread(move(thread_)) {}
+    auto_thread_guard(std::function<void()> fn): tthread(fn) {}
+
     ~auto_thread_guard() {
         if (tthread.joinable())
             tthread.join();
     }
+
     auto_thread_guard(auto_thread_guard&& other) {
         tthread = move(other.tthread);
     }

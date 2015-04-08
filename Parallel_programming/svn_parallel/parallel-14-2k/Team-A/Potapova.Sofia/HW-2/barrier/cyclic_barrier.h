@@ -9,33 +9,42 @@
 #include <thread>
 #include <vector>
 
-using namespace std;
-
 class cyclic_barrier {
-    condition_variable barrier_not_open_cond;
-    mutex mtx;
+    std::condition_variable barrier_not_open_cond;
+    std::mutex mtx;
     int size;
-    atomic_int reverse_counter;
-    atomic_int counter;
+    int counter;
+    bool allow;
+    std::condition_variable come_to_barrier_cond;
 
 public:
-    cyclic_barrier(int size_ = 10): size(size_), counter(0), reverse_counter(0) {}
+    cyclic_barrier(int size_ = 10): size(size_), counter(0), allow(true) {}
     ~cyclic_barrier() {}
     void enter() {
-        unique_lock<mutex> lock(mtx);
+        std::unique_lock<std::mutex> lock(mtx);
+        while (!allow) {
+            come_to_barrier_cond.wait(lock);
+        }
         ++counter;
-        if (counter != size) {
-            while (0 == reverse_counter)
-                barrier_not_open_cond.wait(lock);
-            --reverse_counter;
-            if (0 != reverse_counter)
-                barrier_not_open_cond.notify_one();
+        if (counter == size){
+            allow = false;
+        }
+
+        while (counter != size && allow) {
+            barrier_not_open_cond.wait(lock);
+        }
+        if (counter == size) {
+            counter--;
+            barrier_not_open_cond.notify_all();
         } else {
-            counter = 0;
-            reverse_counter = size - 1;
-            barrier_not_open_cond.notify_one();
+            counter--;
+        }
+        if (counter == 0) {
+            allow = true;
+            come_to_barrier_cond.notify_all();
         }
     }
 };
+
 
 #endif // BARRIER_H_INCLUDED

@@ -5,14 +5,14 @@
 #include <thread>
 #include <iostream>
 
-using namespace std;
-
 class auto_lock_guard {
-    mutex& mtx;
+    std::mutex& mtx;
+
 public:
-    auto_lock_guard(mutex& mtx_): mtx(mtx_) {
+    auto_lock_guard(std::mutex& mtx_): mtx(mtx_) {
         mtx.lock();
     }
+
     ~auto_lock_guard() {
         mtx.unlock();
     }
