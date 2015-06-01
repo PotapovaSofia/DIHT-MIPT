@@ -1,11 +1,14 @@
+#pragma once
+
 #include <iostream>
 #include <forward_list>
 #include <boost/thread.hpp>
 #include <algorithm>
 #include <thread>
+#include <atomic>
 
 #define GROWTH_FACTOR 2
-#define LOAD_FACTOR 2
+#define LOAD_FACTOR 0.5
 
 template<typename T, typename Hash = std::hash<T>>
 class striped_hash_set {
@@ -14,31 +17,35 @@ class striped_hash_set {
     std::vector<boost::shared_mutex> stripes;
     size_t growth_factor;
     double load_factor;
-    size_t set_size;
+    std::atomic<size_t> set_size;
     Hash hasher;
 
 public:
 
     striped_hash_set(size_t concurrency_level, size_t growth_factor_ = GROWTH_FACTOR,
-            double load_factor_ = LOAD_FACTOR) : buckets(concurrency_level), stripes(concurrency_level),
-                                                 growth_factor(growth_factor_), load_factor(load_factor_),
-                                                 set_size(0) {}
+                     double load_factor_ = LOAD_FACTOR) : buckets(concurrency_level), stripes(concurrency_level),
+                                                          growth_factor(growth_factor_), load_factor(load_factor_),
+                                                          set_size(0) {}
 
     ~striped_hash_set() {}
 
     void add(const T& e) {
         size_t hash = hasher(e);
         size_t stripe_index = get_stripe_index(hash);
-        boost::unique_lock<boost::shared_mutex> lock(stripes[stripe_index]);
+        stripes[stripe_index].lock();
         size_t bucket_index = get_bucket_index(hash);
         if (find_entry_for(buckets[bucket_index], e) == buckets[bucket_index].end()) {
             buckets[bucket_index].push_front(e);
-            set_size++;
+            set_size.fetch_add(1);
         }
         if (get_current_load() >= load_factor) {
+            size_t size = buckets.size();   
             stripes[stripe_index].unlock();
-            resize(buckets.size());
+            resize(size);
+        } else {
+            stripes[stripe_index].unlock();
         }
+
     }
 
     bool contains(const T& e) {
@@ -54,9 +61,8 @@ public:
         size_t bucket_index = get_bucket_index(hash);
         if (find_entry_for(buckets[bucket_index], e) != buckets[bucket_index].end()) {
             buckets[bucket_index].remove(e);
-            set_size--;
+            set_size.fetch_sub(1);
         }
-
     }
 
     void print() {
@@ -75,12 +81,13 @@ private:
     }
 
     double get_current_load() {
-        return (double)set_size / buckets.size();
+        size_t size = set_size.load();
+        return (double)size / buckets.size();
     }
 
     void resize(size_t expected_num_buckets) {
         boost::unique_lock<boost::shared_mutex> lock(stripes[0]);
-        if (expected_num_buckets == buckets.size()) {
+        if (expected_num_buckets != buckets.size()) {
             return;
         }
         std::vector<boost::unique_lock<boost::shared_mutex>> locks;
@@ -94,7 +101,6 @@ private:
             }
         }
         buckets.swap(new_table);
-        std::cout << buckets.size();
     }
 
     size_t get_stripe_index(size_t hash) {

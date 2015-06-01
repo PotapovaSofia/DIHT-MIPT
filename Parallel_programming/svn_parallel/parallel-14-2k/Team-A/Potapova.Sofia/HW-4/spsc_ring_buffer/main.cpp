@@ -14,7 +14,6 @@ long consumer_work_loop(spsc_ring_buffer<int>& channel) {
         while (!channel.dequeue(elem)) {
             std::this_thread::yield();
         }
-        //std::cout << std::this_thread::get_id() << ": d: " << extracted_element << std::endl;
         sum += elem;
     }
 
@@ -27,7 +26,6 @@ long producer_work_loop(spsc_ring_buffer<int>& channel) {
         while (!channel.enqueue(i)) {
             std::this_thread::yield();
         }
-        //std::cout << std::this_thread::get_id() << ": e: " << i << std::endl;
         sum += i;
     }
     return sum;

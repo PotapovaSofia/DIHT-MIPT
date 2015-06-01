@@ -37,12 +37,19 @@ public :
     std::future<R> submit(std::function<R()> f) {
         std::packaged_task<R()> task(f);
         std::future<R> res(task.get_future());
-        try {
-            tasks.push(std::move(task));    
-        } catch (std::logic_error e) {
-            std::cout << "Logic error: " << e.what() << std::endl;
-        }        
+        tasks.push(std::move(task));
         return res;
+    }
+
+    void active_wait(std::future<R> &res) {
+        while(res.wait_for(std::chrono::seconds(0)) != std::future_status::ready) {
+            std::packaged_task<R()> task;
+            if (tasks.try_pop(task)) {
+                task();
+            } else {
+                std::this_thread::yield();
+            }
+        }
     }
 
 private:

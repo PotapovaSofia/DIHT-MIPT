@@ -27,11 +27,21 @@ public:
             queue_not_empty_cond.wait(lock);
         }
         if (!ordinary_queue.empty()) {
-            answer = move(ordinary_queue.front());
+            answer = std::move(ordinary_queue.front());
             ordinary_queue.pop();
             return true;
         }
         return false;
+    }
+
+    bool try_pop(T& answer) {
+        std::lock_guard<std::mutex> lock(queue_mtx);
+        if (ordinary_queue.empty()) {
+            return false;
+        }
+        answer = std::move(ordinary_queue.front());
+        ordinary_queue.pop();
+        return true;
     }
 
     void push(T element) {
