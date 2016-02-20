@@ -1,0 +1,24 @@
+scp -r -P 51798 src s29425@remote.vdi.mipt.ru:./
+ssh s29425@remote.vdi.mipt.ru -p 51798 -L 7180:10.55.163.141:7180 -L 8088:bds11.vdi.mipt.ru:8088 -L 50070:bds01.vdi.mipt.ru:50070
+
+
+ssh g394_14@52.28.68.60
+
+
+javac -cp `yarn classpath` WordCount.java -d ./build
+jar cf wc.jar *.class
+hadoop jar wc.jar WordCount /data/wiki/en_articles_part  output
+hadoop fs -ls output
+hadoop fs cat output/part-r-00000	
+
+
+
+hadoop fs -rm -r streaming_output
+hadoop fs -rm -r streaming_output2
+
+hadoop jar /opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/hadoop-streaming.jar -D mapred.output.key.comparator.class=org.apache.hadoop.mapred.lib.KeyFieldBasedComparator -D mapred.reduce.tasks=1 -input /data/wiki/en_articles_part/articles-sample.txt -output streaming_output -mapper 'python mapper.py' -reducer 'python reducer.py' -file /opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/hadoop-streaming.jar -file mapper.py -file reducer.py
+
+
+hadoop jar /opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/hadoop-streaming.jar -D mapred.output.key.comparator.class=org.apache.hadoop.mapred.lib.KeyFieldBasedComparator -D mapred.text.key.comparator.options=-n -D mapred.reduce.tasks=1 -input streaming_output/part-00000 -output streaming_output2 -mapper 'python mapper2.py' -reducer 'python reducer2.py' -file /opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/hadoop-streaming.jar -file mapper2.py -file reducer2.py
+
+hadoop fs -cat streaming_output2/part-00000

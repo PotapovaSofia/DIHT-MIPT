@@ -1,0 +1,21 @@
+#!/bin/bash
+echo "Test 1. Random field 100x100. 10 threads"
+test1="START n 100 100 10\nRUN 10\nAWAIT QUIT\n"
+time `echo -ne ${test1} | ./main.out > /dev/null`
+
+echo "Test 2. Random field 100x100. 8 thread"
+test2="START n 100 100 8\nRUN 10\nAWAIT QUIT\n"
+time `echo -ne ${test2} | ./main.out > /dev/null`
+
+echo "Test 3. Random field 100x100. 4 thread"
+test3="START n 100 100 4\nRUN 10\nAWAIT QUIT\n"
+time `echo -ne ${test3} | ./main.out > /dev/null`
+
+echo "Test 4. Random field 100x100. 2 thread"
+test4="START n 100 100 2\nRUN 10\nAWAIT QUIT\n"
+time `echo -ne ${test4} | ./main.out > /dev/null`
+
+echo "Test 5. Random field 100x100. 1 thread"
+test5="START n 100 100 1\nRUN 10\nAWAIT QUIT\n"
+time `echo -ne ${test5} | ./main.out > /dev/null`
+
